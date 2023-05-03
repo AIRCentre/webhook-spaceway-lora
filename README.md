@@ -4,7 +4,9 @@
 Webhook for the real-time event-driven delivery of location data to database.   
 Code of the webhook and all supporting documentation, including the Dockerfile for its deployment.
 
-### Database: MySQL 8. Credentials as Github Secrets.
+### Database  
++ MySQL 8.
++ Credentials as Github Secrets.
 
 ### Contents  
 1. Documentation  

@@ -1,8 +1,9 @@
-# Webhook pushes space-based IoT location data to database
+# Webhook For Space-based LoRa Communication of Vessel Tracking Data
 *Developed by Spaceway*
+_____
 
-Webhook for the real-time event-driven delivery of location data to database.   
-Code of the webhook and all supporting documentation, including the Dockerfile for its deployment.
+Webhook for the real-time event-driven delivery of location data to database. The webhook pushes space-based IoT location data to database.   
+The repo contains the code of the webhook and all supporting documentation, including the Dockerfile for its deployment.
 
 ### Database  
 + MySQL 8.

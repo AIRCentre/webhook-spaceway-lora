@@ -8,6 +8,27 @@ The repo contains the code of the webhook and all supporting documentation, incl
 ### Database  
 + MySQL 8.
 + Credentials as Github Secrets.
++ Naming tables: lowercase
++ Naming columns:
+  + English
+  + Lowecase
+  + Underscore rathern than spaces
+  + Include the unit
+
+Exemples:
++ station_id           (key)
++ battery_v
++ rssi_dbm
++ snr_db
++ latitude_deg         (WGS84)
++ longitude_deg        (WGS84)
++ gw_eui
++ timestamp_utc_iso_string 
++ wind_speed_kmh
++ temperature_c
++ radiation_kjm2
++ rel_humidity_pctg
++ wind_direction_bin
 
 ### Contents  
 1. Documentation  

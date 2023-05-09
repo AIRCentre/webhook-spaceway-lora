@@ -14,7 +14,7 @@ The repo contains the code of the webhook and all supporting documentation, incl
 + Naming columns:
   + English
   + Lowecase
-  + Underscore rathern than spaces
+  + Underscore rather than spaces
   + Include the unit
 
 Exemples:

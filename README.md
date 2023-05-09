@@ -8,7 +8,9 @@ The repo contains the code of the webhook and all supporting documentation, incl
 ### Database  
 + MySQL 8.
 + Credentials as Github Secrets.
-+ Naming tables: lowercase
++ Naming tables:
+  + English
+  + Lowercase
 + Naming columns:
   + English
   + Lowecase

@@ -1,5 +1,5 @@
 # Webhook For Space-based LoRa Communication of Vessel Tracking Data
-*Developed by Spaceway*
+*Webhook Developed by Spaceway*
 _____
 
 Webhook for the real-time event-driven delivery of location data to database. The webhook pushes space-based IoT location data to database.   

@@ -8,11 +8,11 @@ import (
 	"github.com/go-sql-driver/mysql"
 )
 
-type mysqlDriver struct {
+type driver struct {
 	db *sql.DB
 }
 
-func New(username, password, hostname, port, database string) (*mysqlDriver, error) {
+func New(username, password, hostname, port, database string) (*driver, error) {
 	// Create a new TLS config
 	tlsConfig := &tls.Config{
 		InsecureSkipVerify: true,
@@ -30,10 +30,10 @@ func New(username, password, hostname, port, database string) (*mysqlDriver, err
 		return nil, err
 	}
 
-	return &mysqlDriver{db}, err
+	return &driver{db}, err
 }
 
-func (d mysqlDriver) Query(query string, args ...interface{}) ([]map[string][]byte, error) {
+func (d driver) Query(query string, args ...interface{}) ([]map[string][]byte, error) {
 	rows, err := d.db.Query(query, args...)
 	if err != nil {
 		fmt.Println(err.Error())
@@ -48,12 +48,16 @@ func (d mysqlDriver) Query(query string, args ...interface{}) ([]map[string][]by
 	return mapSlice, nil
 }
 
-func (d mysqlDriver) Exec(query string, args ...interface{}) (sql.Result, error) {
+func (d driver) Exec(query string, args ...interface{}) (int64, int64, error) {
 	result, err := d.db.Exec(query, args...)
 	if err != nil {
-		return nil, err
+		return 0, 0, err
 	}
-	return result, nil
+
+	lastInsertId, _ := result.LastInsertId()
+	rowsAffected, _ := result.RowsAffected()
+
+	return lastInsertId, rowsAffected, nil
 }
 
 func rowsToMaps(rows *sql.Rows) ([]map[string][]byte, error) {

@@ -1,9 +1,11 @@
 package mysqldriver
 
 type driverMock struct {
-	queryResult []map[string][]byte
-	lastQuery   string
-	err         error
+	queryResult      []map[string][]byte
+	lastQuery        string
+	execLastInsert   int64
+	execRowsAffected int64
+	err              error
 }
 
 func (d *driverMock) Query(query string, args ...interface{}) ([]map[string][]byte, error) {
@@ -11,8 +13,18 @@ func (d *driverMock) Query(query string, args ...interface{}) ([]map[string][]by
 	return d.queryResult, d.err
 }
 
+func (d *driverMock) Exec(query string, args ...interface{}) (lastInsertId int64, rowsAffected int64, err error) {
+	d.lastQuery = query
+	return d.execLastInsert, d.execRowsAffected, d.err
+}
+
 func (d *driverMock) SetQueryResult(result []map[string][]byte) {
 	d.queryResult = result
+}
+
+func (d *driverMock) SetExecResult(lastInsertId int64, rowsAffected int64) {
+	d.execLastInsert = lastInsertId
+	d.execRowsAffected = rowsAffected
 }
 
 func (d *driverMock) SetError(err error) {

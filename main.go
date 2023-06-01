@@ -3,6 +3,8 @@ package main
 import (
 	"encoding/json"
 	"fmt"
+	"io"
+	"log"
 	"net/http"
 	"os"
 
@@ -27,6 +29,7 @@ func main() {
 
 	router := mux.NewRouter()
 	router.HandleFunc("/health", healthckeckHandlerFunc).Methods("GET")
+	router.HandleFunc("/hook", hookHandlerFunc).Methods("POST")
 
 	err = http.ListenAndServe(":3000", router)
 	if err != nil {
@@ -38,4 +41,13 @@ func main() {
 func healthckeckHandlerFunc(w http.ResponseWriter, r *http.Request) {
 	payload := map[string]any{"status": "healthy"}
 	json.NewEncoder(w).Encode(payload)
+}
+
+func hookHandlerFunc(w http.ResponseWriter, r *http.Request) {
+	body, err := io.ReadAll(r.Body)
+	if err != nil {
+		http.Error(w, "Failed to read request body", http.StatusInternalServerError)
+		return
+	}
+	log.Printf("Request Body: %s", body)
 }

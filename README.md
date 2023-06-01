@@ -31,6 +31,9 @@ Exemples:
 + rel_humidity_pctg
 + wind_direction_bin
 
+### URL
+loraspaceway.aircentre.io
+
 ### Contents  
 1. Documentation  
  1.1 Technical description  

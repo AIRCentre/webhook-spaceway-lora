@@ -1,0 +1,51 @@
+name: CI workflow for webhook-spaceway-lora
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build_test_push:
+    name: Build, Test, and Push
+    runs-on: ubuntu-latest
+    if: "!contains(github.event.head_commit.message, 'no-ci')" # 'no-ci' in commit message skips job execution
+    steps:
+      - name: Checkout Source Code
+        uses: actions/checkout@v3
+
+      - name: Authenticate with Docker Registry
+        uses: docker/login-action@v2
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Set Up Go Environment
+        uses: actions/setup-go@v3
+        with: 
+          go-version: '^1.20.2'
+
+      - name: Cache Go Dependencies
+        uses: actions/cache@v3
+        with:
+          path: ~/go/pkg/mod
+          key: ${{ runner.os }}-go-${{ hashFiles('go.sum') }}
+          restore-keys: ${{ runner.os }}-go-
+
+      - name: Execute Unit Tests
+        run: go test ./internal/...
+      
+      - name: Setup End-to-End Environment
+        run: |
+          docker-compose up -d --build
+          docker-compose exec -T fake-db sh -c 'while ! mysqladmin ping -h0.0.0.0 --silent; do sleep 1; done'
+
+      - name: Execute End-to-End Tests
+        run: go test ./e2e/tests/...
+      
+      - name: Taredown End-to-End Environment
+        run: docker-compose down -v
+
+      - name: Push Docker Image to Registry
+        run: docker compose push webhook-spaceway-lora

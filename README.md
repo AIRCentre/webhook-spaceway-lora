@@ -43,3 +43,25 @@ Exemples:
 2.1 Notes for the deployment of the Dockerfile  
 3. Webhook monitoring and control services  
 
+
+## Development Setup
+
+#### Prerequisites
+- Go 1.20 - available [here](https://golang.org/dl/).
+- Git - available [here](https://git-scm.com/downloads).
+- Docker - available [here](https://www.docker.com/products/docker-desktop).
+
+#### Dependencies
+Run `go mod download` to install dependencies
+
+#### Testing
+- Run `go test ./modules/...` to execute unit tests
+- Run `sh ./e2e/run_tests.sh` to execute end-to-end tests
+
+
+## CI Workflow
+This project uses GitHub Actions to enable continous integration (CI).
+
+On every commit, the pipeline builds, tests and pushes a new version of a Docker image called `webhook-spaceway-lora` to GitHub's container Registry (ghcr.io). It becomes avaliable in [AIR Centre's GitHub Packages page](https://github.com/orgs/AIRCentre/packages). 
+
+Include `no-ci` in the commit message to prevent the workflow from running. This is useful when updating just the readme or other files that dont affect system behavior.

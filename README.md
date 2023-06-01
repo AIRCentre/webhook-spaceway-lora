@@ -57,7 +57,7 @@ loraspaceway.aircentre.io
 Run `go mod download` to install dependencies
 
 #### Testing
-- Run `go test ./modules/...` to execute unit tests
+- Run `go test ./internal/...` to execute unit tests
 - Run `sh ./e2e/run_tests.sh` to execute end-to-end tests
 
 

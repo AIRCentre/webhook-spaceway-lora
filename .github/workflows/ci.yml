@@ -9,7 +9,8 @@ jobs:
   build_test_push:
     name: Build, Test, and Push
     runs-on: ubuntu-latest
-    if: "!contains(github.event.head_commit.message, 'no-ci')" # 'no-ci' in commit message skips job execution
+    # 'no-ci' in commit message skips job execution
+    if: ${{!contains(github.event.head_commit.message, 'no-ci')}}
     steps:
       - name: Checkout Source Code
         uses: actions/checkout@v3

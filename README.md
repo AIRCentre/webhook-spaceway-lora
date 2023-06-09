@@ -46,6 +46,31 @@ loraspaceway.aircentre.io
 3. Webhook monitoring and control services  
 
 
+## Example payload
+```json
+{
+   "Device": "F-0x06eb2",
+   "Packet Id": 52053866,
+   "Timestamp": "Thu Mar 23 2023 01:00:06 GMT+0000 (Western European Standard Time)",
+   "Rx Time": "Thu Mar 23 2023 16:30:52 GMT+0000 (Western European Standard Time)",
+   "Altitude": 438,
+   "Heading": 338,
+   "Latitude": 40.2516,
+   "Longitude": -7.4872,
+   "GPS Jamming": 84,
+   "GPS Spoofing": 1,
+   "Temperature": 19,
+   "Battery Voltage": 4021,
+   "Speed": 0,
+   "Telemetry SNR": -9,
+   "Telemetry RSSI": -114,
+   "Telemetry Time": 1679526068,
+   "RSSI Background": -104,
+   "Telemetry Type": "ASSET_TRACKER",
+   "Version": 1
+ }
+```
+
 ## Development Setup
 
 #### Prerequisites
@@ -67,3 +92,4 @@ This project uses GitHub Actions to enable continous integration (CI).
 On every commit, the pipeline builds, tests and pushes a new version of a Docker image called `webhook-spaceway-lora` to GitHub's container Registry (ghcr.io). It becomes avaliable in [AIR Centre's GitHub Packages page](https://github.com/orgs/AIRCentre/packages). 
 
 Include `no-ci` in the commit message to prevent the workflow from running. This is useful when updating just the readme or other files that dont affect system behavior.
+

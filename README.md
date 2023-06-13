@@ -71,6 +71,34 @@ loraspaceway.aircentre.io
  }
 ```
 
+## Key-renamed payload
+```json
+{
+   "device": "F-0x06eb2",
+   "packet Id": 52053866,
+   "timestamp": "Thu Mar 23 2023 01:00:06 GMT+0000 (Western European Standard Time)",
+   "rx_ime": "Thu Mar 23 2023 16:30:52 GMT+0000 (Western European Standard Time)",
+   "altitude": 438,
+   "heading": 338,
+   "latitude_deg": 40.2516,
+   "longitude_deg": -7.4872,
+   "gps_jamming": 84,
+   "gps_spoofing": 1,
+   "temperature_c": 19,
+   "battery_v": 4021,
+   "speed": 0,
+   "telemetry_snr_db": -9,
+   "telemetry_rssi_dbm": -114,
+   "telemetry_time": 1679526068,
+   "rssi_background": -104,
+   "telemetry_type": "ASSET_TRACKER",
+   "version": 1
+ }
+```
+
+
+
+
 ## Development Setup
 
 #### Prerequisites

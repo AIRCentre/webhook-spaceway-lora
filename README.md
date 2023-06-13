@@ -71,7 +71,7 @@ loraspaceway.aircentre.io
  }
 ```
 
-## Key-renamed payload
+## Key-renamed payload equivalent for database coherence
 ```json
 {
    "device": "F-0x06eb2",

@@ -3,12 +3,11 @@ package main
 import (
 	"encoding/json"
 	"fmt"
-	"io"
-	"log"
 	"net/http"
 	"os"
 
 	"github.com/AIRCentre/webhook-spaceway-lora/external/mysqldriver"
+	"github.com/AIRCentre/webhook-spaceway-lora/internal/mysqlrepo"
 	"github.com/gorilla/mux"
 )
 
@@ -25,11 +24,26 @@ func main() {
 		panic(err.Error())
 	}
 
-	fmt.Println(mysqlDriver) // remove this after driver is in use
+	mysqlRepo := mysqlrepo.New(mysqlDriver)
 
 	router := mux.NewRouter()
 	router.HandleFunc("/health", healthckeckHandlerFunc).Methods("GET")
-	router.HandleFunc("/hook", hookHandlerFunc).Methods("POST")
+	router.HandleFunc("/uplink", func(w http.ResponseWriter, r *http.Request) {
+		var payload mysqlrepo.SwarmPayload
+		err := json.NewDecoder(r.Body).Decode(&payload)
+		if err != nil {
+			fmt.Println(err.Error())
+			http.Error(w, "Failed to read request body", http.StatusInternalServerError)
+			return
+		}
+		err = mysqlRepo.Insert(payload)
+		if err != nil {
+			fmt.Println(err.Error())
+			http.Error(w, "Failed to handle swarm payload", http.StatusInternalServerError)
+			return
+		}
+
+	}).Methods("POST")
 
 	err = http.ListenAndServe(":3000", router)
 	if err != nil {
@@ -41,13 +55,4 @@ func main() {
 func healthckeckHandlerFunc(w http.ResponseWriter, r *http.Request) {
 	payload := map[string]any{"status": "healthy"}
 	json.NewEncoder(w).Encode(payload)
-}
-
-func hookHandlerFunc(w http.ResponseWriter, r *http.Request) {
-	body, err := io.ReadAll(r.Body)
-	if err != nil {
-		http.Error(w, "Failed to read request body", http.StatusInternalServerError)
-		return
-	}
-	log.Printf("Request Body: %s", body)
 }

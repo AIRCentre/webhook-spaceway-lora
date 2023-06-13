@@ -55,3 +55,62 @@
 --   ( "st2", "2023-01-02 00:00:00+00:00", 4.1, 24.1, 2000, 150.0, 23.1, 73.2, 1020.4),
 --   ( "st3", DATE_FORMAT(NOW(), '%Y-%m-%d 00:00:00+00:00'), NULL, 25.2, NULL, NULL, NULL, 96.7, 1021.4),
 --   ( "st3", "2023-01-01 00:00:00+00:00", 20.1, NULL, NULL, 180.0, NULL, NULL, NULL);
+
+
+-- -- create databese: vessel_location
+-- CREATE DATABASE IF NOT EXISTS vessel_location;
+
+-- -- create table: gateways
+-- CREATE TABLE IF NOT EXISTS vessel_location.gateways(
+-- gw_eui VARCHAR(45) NOT NULL,
+-- gw_lon_deg_wgs84 DECIMAL(9,6) NOT NULL,
+-- gw_lat_deg_wgs84 DECIMAL(8,6) NOT NULL,
+-- PRIMARY KEY (gw_eui),
+-- UNIQUE KEY gw_eui_UNIQUE (gw_eui)
+-- );
+
+-- -- create table: events
+-- CREATE TABLE IF NOT EXISTS vessel_location.events(
+-- id int unsigned NOT NULL AUTO_INCREMENT,
+-- timestamp_utc_iso_string DATETIME NOT NULL,
+-- dev_eui VARCHAR(45) NOT NULL,
+-- dev_lon_deg_wgs84 DECIMAL(9,6) NOT NULL,
+-- dev_lat_deg_wgs84 DECIMAL(8,6) NOT NULL,
+-- rssi_dbm INT NOT NULL,
+-- snr_db DECIMAL(2,1) NOT NULL,
+-- distance_to_gw_km FLOAT NOT NULL,
+-- gw_eui VARCHAR(45) NOT NULL,
+-- PRIMARY KEY (id),
+-- UNIQUE KEY id_UNIQUE (id),
+-- KEY fk_idx (gw_eui),
+-- CONSTRAINT fk FOREIGN KEY (gw_eui) REFERENCES vessel_location.gateways (gw_eui)
+-- );
+
+-- create databese: meteorology
+CREATE DATABASE IF NOT EXISTS Vessel_location;
+
+-- Cretate table for SWARM data
+CREATE TABLE IF NOT EXISTS Vessel_location.swarm_events(
+   id INT UNSIGNED NOT NULL AUTO_INCREMENT,  
+   Device VARCHAR(10),
+   PacketId INT,
+   Timestamp DATETIME,
+   RxTime DATETIME,
+   Altitude INT,
+   Heading INT,
+   Latitude FLOAT,
+   Longitude FLOAT,
+   GPSJamming INT,
+   GPSSpoofing INT,
+   Temperature INT,
+   BatteryVoltage INT,
+   Speed INT,
+   TelemetrySNR INT,
+   TelemetryRSSI INT,
+   TelemetryTime INT,
+   RSSIBackground INT,
+   TelemetryType VARCHAR(20),
+   Version INT,
+   PRIMARY KEY (id),
+   UNIQUE KEY id_UNIQUE (id)
+);

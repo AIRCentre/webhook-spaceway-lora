@@ -26,4 +26,4 @@ services:
       MYSQL_PASSWD: mysecretpassword
       MYSQL_HOST: test-db
       MYSQL_PORT: 3306
-      MYSQL_DB_NAME: meteorology
+      MYSQL_DB_NAME: Vessel_location

@@ -11,10 +11,12 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Setup SSH
-        uses: webfactory/ssh-agent@v0.7.0
-        with:
-          ssh-private-key: ${{ secrets.SERVER_PRIV_KEY }}
-          
+        run: |
+          mkdir -p ~/.ssh
+          echo "${{ secrets.SERVER_PRIV_KEY }}" > ~/.ssh/id_rsa
+          chmod 600 ~/.ssh/id_rsa
+          echo "${{ secrets.SERVER_HOST_KEY }}" >> ~/.ssh/known_hosts
+        
       - name: ping server
         run: ssh jeyecon@209.97.176.19 "echo ola"
   # build_test_push:

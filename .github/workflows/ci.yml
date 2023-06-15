@@ -68,20 +68,15 @@ jobs:
           run: |
             python -m pip install --upgrade pip
             pip install ansible
+
+        - name: Setup SSH
+          uses: webfactory/ssh-agent@v0.5.3
+          with:
+            ssh-private-key: ${{ secrets.SERVER_PRIV_KEY }}
         
-        - name: setup depoyment credentials
+        - name: Set up Ansible Inventory
           run: |
-            echo '${{ secrets.SERVER_PRIV_KEY }}' > priv_key
-            chmod 600 priv_key
             echo '${{ secrets.SERVER_INV }}' > inventory
 
         - name: Run Ansible playbook
-          # env:
-          #   # MY_SECRET: ${{ secrets.YOUR_SECRET_NAME }}
-          #   MYSQL_USER: ${{ secrets.MYSQL_DO_USERNAME }}
-          #   MYSQL_PASSWD: ${{ secrets.MYSQL_DO_PW }}
-          #   MYSQL_HOST: ${{ secrets.MYSQL_DO_HOST }}
-          #   MYSQL_PORT: ${{ secrets.MYSQL_DO_PORT }}
-          #   MYSQL_DB_NAME: ${{ secrets.MYSQL_DO_DATABASE }}
-          # run: ansible-playbook -e "my_secret=$MY_SECRET" deploy.yml
           run: ansible-playbook -i inventory deploy.yml

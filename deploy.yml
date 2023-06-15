@@ -30,5 +30,5 @@
         MYSQL_USER: "{{ mysql_user }}"
         MYSQL_PASSWD: "{{ mysql_passwd }}"
         MYSQL_HOST: "{{ mysql_host }}"
-        MYSQL_PORT: "{{ mysql_PORT }}"
+        MYSQL_PORT: "{{ mysql_port }}"
         MYSQL_DB_NAME: "{{ mysql_db_name }}"

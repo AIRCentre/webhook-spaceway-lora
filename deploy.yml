@@ -5,7 +5,11 @@
     docker_registry_password: "{{ lookup('env','secrets.GITHUB_TOKEN') }}"
     docker_registry_url: "ghcr.io"
     docker_network_name: "proxy_net"
-    env_var1: "{{ lookup('env','ENV_VAR1') }}"
+    mysql_user: "{{ lookup('env','secrets.MYSQL_DO_USERNAME') }}"
+    mysql_passwd: "{{ lookup('env','secrets.MYSQL_DO_PW') }}"
+    mysql_host: : "{{ lookup('env','secrets.MYSQL_DO_HOST') }}"
+    mysql_port: : "{{ lookup('env','secrets.MYSQL_DO_PORT') }}"
+    mysql_db_name: "{{ lookup('env','secrets.MYSQL_DO_DATABASE') }}"
 
   tasks:
   - name: Login to Docker Registry

@@ -11,11 +11,12 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Setup SSH
-        uses: webfactory/ssh-agent@v0.5.3
+        uses: webfactory/ssh-agent@v0.7.0
         with:
           ssh-private-key: ${{ secrets.SERVER_PRIV_KEY }}
+          
       - name: ping server
-        run: ssh jgonc@209.97.176.19 "echo ola"
+        run: ssh jeyecon@209.97.176.19 "echo ola"
   # build_test_push:
   #   name: Build, Test, and Push
   #   runs-on: ubuntu-latest

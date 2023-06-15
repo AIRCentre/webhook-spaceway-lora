@@ -121,3 +121,4 @@ On every commit, the pipeline builds, tests and pushes a new version of a Docker
 
 Include `no-ci` in the commit message to prevent the workflow from running. This is useful when updating just the readme or other files that dont affect system behavior.
 
+

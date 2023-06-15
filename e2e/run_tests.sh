@@ -7,6 +7,9 @@ docker compose exec -T test-db sh -c 'while ! mysqladmin ping -h0.0.0.0 --silent
 # run e2e tests
 go clean -testcache && go test ./e2e/tests/... -v
 
+# print logs
+docker compose logs webhook-spaceway-lora
+
 # taredown e2e testing env
 docker compose down -v --rmi local
 

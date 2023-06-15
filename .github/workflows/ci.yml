@@ -81,5 +81,24 @@ jobs:
             echo '${{ secrets.SERVER_INV }}' > inventory
 
         - name: Run Ansible playbook
-          run: ansible-playbook -i inventory deploy.yml
-  
+          run: |
+            ansible-playbook -i inventory deploy.yml \
+              -e "docker_registry_url=ghcr.io" \
+              -e "docker_registry_username=${{ github.actor }}" \
+              -e "docker_registry_password=${{ secrets.GITHUB_TOKEN }}" \
+              -e "docker_network_name=proxy_net" \
+              -e "mysql_user=${{ secrets.MYSQL_DO_USERNAME }}" \
+              -e "mysql_passwd=${{ secrets.MYSQL_DO_PW }}" \
+              -e "mysql_host=${{ secrets.MYSQL_DO_HOST }}" \
+              -e "mysql_port=${{ secrets.MYSQL_DO_PORT }}" \
+              -e "mysql_db_name=${{ secrets.MYSQL_DO_DATABASE }}"
+    # vars:
+  #   docker_registry_username: "{{ lookup('env','github.actor') }}"
+  #   docker_registry_password: "{{ lookup('env','secrets.GITHUB_TOKEN') }}"
+  #   docker_registry_url: "ghcr.io"
+  #   docker_network_name: "proxy_net"
+  #   mysql_user: "{{ lookup('env','secrets.MYSQL_DO_USERNAME') }}"
+  #   mysql_passwd: "{{ lookup('env','secrets.MYSQL_DO_PW') }}"
+  #   mysql_host: "{{ lookup('env','secrets.MYSQL_DO_HOST') }}"
+  #   mysql_port: "{{ lookup('env','secrets.MYSQL_DO_PORT') }}"
+  #   mysql_db_name: "{{ lookup('env','secrets.MYSQL_DO_DATABASE') }}"

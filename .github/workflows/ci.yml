@@ -6,91 +6,80 @@ on:
       - main
 
 jobs:
-  test:
-    name: test
+  build_test_push:
+    name: Build, Test, and Push
     runs-on: ubuntu-latest
+    # 'no-ci' in commit message skips job execution
+    if: ${{ !contains(github.event.head_commit.message, 'no-ci') }}
     steps:
-      - name: Setup SSH
+      - name: Checkout Source Code
+        uses: actions/checkout@v3
+
+      - name: Authenticate with Docker Registry
+        uses: docker/login-action@v2
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Set Up Go Environment
+        uses: actions/setup-go@v3
+        with: 
+          go-version: '^1.20.2'
+
+      - name: Cache Go Dependencies
+        uses: actions/cache@v3
+        with:
+          path: ~/go/pkg/mod
+          key: ${{ runner.os }}-go-${{ hashFiles('go.sum') }}
+          restore-keys: ${{ runner.os }}-go-
+
+      - name: Execute Unit Tests
+        run: go test ./internal/...
+      
+      - name: Setup End-to-End Environment
         run: |
-          mkdir -p ~/.ssh
-          echo "${{ secrets.SERVER_PRIV_KEY }}" > ~/.ssh/id_rsa
-          chmod 600 ~/.ssh/id_rsa
-          echo "${{ secrets.SERVER_HOST_KEY }}" >> ~/.ssh/known_hosts
-        
-      - name: ping server
-        run: ssh jeyecon@209.97.176.19 "echo ola"
-  # build_test_push:
-  #   name: Build, Test, and Push
-  #   runs-on: ubuntu-latest
-  #   # 'no-ci' in commit message skips job execution
-  #   if: ${{ !contains(github.event.head_commit.message, 'no-ci') }}
-  #   steps:
-  #     - name: Checkout Source Code
-  #       uses: actions/checkout@v3
+          docker-compose up -d --build
+          docker-compose exec -T test-db sh -c 'while ! mysqladmin ping -h0.0.0.0 --silent; do sleep 1; done'
 
-  #     - name: Authenticate with Docker Registry
-  #       uses: docker/login-action@v2
-  #       with:
-  #         registry: ghcr.io
-  #         username: ${{ github.actor }}
-  #         password: ${{ secrets.GITHUB_TOKEN }}
-
-  #     - name: Set Up Go Environment
-  #       uses: actions/setup-go@v3
-  #       with: 
-  #         go-version: '^1.20.2'
-
-  #     - name: Cache Go Dependencies
-  #       uses: actions/cache@v3
-  #       with:
-  #         path: ~/go/pkg/mod
-  #         key: ${{ runner.os }}-go-${{ hashFiles('go.sum') }}
-  #         restore-keys: ${{ runner.os }}-go-
-
-  #     - name: Execute Unit Tests
-  #       run: go test ./internal/...
+      - name: Execute End-to-End Tests
+        run: go test ./e2e/tests/...
       
-  #     - name: Setup End-to-End Environment
-  #       run: |
-  #         docker-compose up -d --build
-  #         docker-compose exec -T test-db sh -c 'while ! mysqladmin ping -h0.0.0.0 --silent; do sleep 1; done'
+      - name: Taredown End-to-End Environment
+        run: docker-compose down -v
 
-  #     - name: Execute End-to-End Tests
-  #       run: go test ./e2e/tests/...
-      
-  #     - name: Taredown End-to-End Environment
-  #       run: docker-compose down -v
+      - name: Push Docker Image to Registry
+        run: docker compose push webhook-spaceway-lora
 
-  #     - name: Push Docker Image to Registry
-  #       run: docker compose push webhook-spaceway-lora
+  deploy:
+      needs: build_test_push
+      runs-on: ubuntu-latest
 
-  # deploy:
-  #     needs: build_test_push
-  #     runs-on: ubuntu-latest
+      steps:
+        - name: Checkout code
+          uses: actions/checkout@v3
 
-  #     steps:
-  #       - name: Checkout code
-  #         uses: actions/checkout@v2
+        - name: Setup Remote Server SSH credentials
+          run: |
+            mkdir -p ~/.ssh
+            echo "${{ secrets.SERVER_PRIV_KEY }}" > ~/.ssh/id_rsa
+            chmod 600 ~/.ssh/id_rsa
+            echo "${{ secrets.SERVER_HOST_KEY }}" >> ~/.ssh/known_hosts
 
-  #       - name: Set up Python
-  #         uses: actions/setup-python@v2
-  #         with:
-  #           python-version: '3.x'
+        - name: Set up Python
+          uses: actions/setup-python@v3
+          with:
+            python-version: '3.x'
 
-  #       - name: Set up dependencies
-  #         run: |
-  #           python -m pip install --upgrade pip
-  #           pip install ansible
-
-  #       - name: Setup SSH
-  #         uses: webfactory/ssh-agent@v0.5.3
-  #         with:
-  #           ssh-private-key: ${{ secrets.SERVER_PRIV_KEY }}
+        - name: Set up dependencies
+          run: |
+            python -m pip install --upgrade pip
+            pip install ansible
         
-  #       - name: Set up Ansible Inventory
-  #         run: |
-  #           echo '${{ secrets.SERVER_INV }}' > inventory
+        - name: Set up Ansible Inventory
+          run: |
+            echo '${{ secrets.SERVER_INV }}' > inventory
 
-  #       - name: Run Ansible playbook
-  #         run: ansible-playbook -i inventory deploy.yml
+        - name: Run Ansible playbook
+          run: ansible-playbook -i inventory deploy.yml
   

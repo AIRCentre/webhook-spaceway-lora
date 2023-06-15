@@ -20,8 +20,8 @@
 
   - name: Deploy Docker container
     docker_container:
-      name: your_container_name
-      image: your_docker_image
+      name: webhook-spaceway-lora
+      image: ghcr.io/aircentre/webhook-spaceway-lora
       networks:
         - name: "{{ docker_network_name }}"
       restart: unless-stopped

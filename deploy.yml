@@ -25,7 +25,9 @@
       image: ghcr.io/aircentre/webhook-spaceway-lora
       networks:
         - name: "{{ docker_network_name }}"
-      restart: unless-stopped
+      restart_policy: unless-stopped
+      state: started
+      pull: always
       env:
         MYSQL_USER: "{{ mysql_user }}"
         MYSQL_PASSWD: "{{ mysql_passwd }}"

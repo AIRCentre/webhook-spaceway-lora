@@ -50,7 +50,7 @@ func formatTimestamp(ts string) string {
 
 func insertQuery(payload SwarmPayload) string {
 	query := fmt.Sprintf(`
-		INSERT INTO swarm_events (Device, PacketId, Timestamp, RxTime, Altitude, Heading, Latitude, Longitude, GPSJamming, GPSSpoofing, Temperature, BatteryVoltage, Speed, TelemetrySNR, TelemetryRSSI, TelemetryTime, RSSIBackground, TelemetryType, Version)
+		INSERT INTO swarm_events (device, packet_id, timestamp, rx_time, altitude, heading, latitude_deg, longitude_deg, gps_jamming, gps_spoofing, temperature, battery_voltage, speed, telemetry_snr_db, telemetry_rssi_dbm, telemetry_time, rssi_background_dbm, telemetry_type, version)
 		VALUES ('%s', %d, '%s', '%s', %d, %d, %f, %f, %d, %d, %d, %d, %d, %d, %d, %d, %d, '%s', %d);`,
 		payload.Device,
 		payload.PacketID,

@@ -16,25 +16,25 @@ func TestHandlePushFromSwarm(t *testing.T) {
 	t.Run("sends POST request to downlink endpoint with a swarm payload and verifies that it was stored in the database", func(t *testing.T) {
 		// given
 		payload := `{
-			"Device": "F-0x06eb2",
-			"Packet Id": 52053866,
-			"Timestamp": "Thu Mar 23 2023 01:00:06 GMT+0000 (Western European Standard Time)",
-			"Rx Time": "Thu Mar 23 2023 16:30:52 GMT+0000 (Western European Standard Time)",
-			"Altitude": 438,
-			"Heading": 338,
-			"Latitude": 40.2516,
-			"Longitude": -7.4872,
-			"GPS Jamming": 84,
-			"GPS Spoofing": 1,
-			"Temperature": 19,
-			"Battery Voltage": 4021,
-			"Speed": 0,
-			"Telemetry SNR": -9,
-			"Telemetry RSSI": -114,
-			"Telemetry Time": 1679526068,
-			"RSSI Background": -104,
-			"Telemetry Type": "ASSET_TRACKER",
-			"Version": 1
+			"device": "F-0x06eb2",
+			"packet_id": 52053866,
+			"timestamp": "Thu Mar 23 2023 01:00:06 GMT+0000 (Western European Standard Time)",
+			"rx_time": "Thu Mar 23 2023 16:30:52 GMT+0000 (Western European Standard Time)",
+			"altitude": 438,
+			"heading": 338,
+			"latitude_deg": 40.2516,
+			"longitude_deg": -7.4872,
+			"gps_jamming": 84,
+			"gps_spoofing": 1,
+			"temperature": 19,
+			"battery_v": 4021,
+			"speed": 0,
+			"telemetry_snr_db": -9,
+			"telemetry_rssi_dbm": -114,
+			"telemetry_time": 1679526068,
+			"rssi_background_dbm": -104,
+			"telemetry_type": "ASSET_TRACKER",
+			"version": 1
 		}`
 
 		// when
@@ -56,7 +56,7 @@ func TestHandlePushFromSwarm(t *testing.T) {
 		if err != nil {
 			t.Fatal("failed to connect to test_db, check connection args")
 		}
-		data, err := driver.Query("SELECT * FROM swarm_events WHERE Device='F-0x06eb2'")
+		data, err := driver.Query("SELECT * FROM swarm_events WHERE device='F-0x06eb2'")
 		if err != nil {
 			t.Fatal("query failed, check query string")
 		}

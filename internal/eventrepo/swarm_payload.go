@@ -1,23 +1,23 @@
 package eventrepo
 
 type SwarmPayload struct {
-	Device         string  `json:"Device"`
-	PacketID       int     `json:"Packet Id"`
-	Timestamp      string  `json:"Timestamp"`
-	RxTime         string  `json:"Rx Time"`
-	Altitude       int     `json:"Altitude"`
-	Heading        int     `json:"Heading"`
-	Latitude       float64 `json:"Latitude"`
-	Longitude      float64 `json:"Longitude"`
-	GPSJamming     int     `json:"GPS Jamming"`
-	GPSSpoofing    int     `json:"GPS Spoofing"`
-	Temperature    int     `json:"Temperature"`
-	BatteryVoltage int     `json:"Battery Voltage"`
-	Speed          int     `json:"Speed"`
-	TelemetrySNR   int     `json:"Telemetry SNR"`
-	TelemetryRSSI  int     `json:"Telemetry RSSI"`
-	TelemetryTime  int     `json:"Telemetry Time"`
-	RSSIBackground int     `json:"RSSI Background"`
-	TelemetryType  string  `json:"Telemetry Type"`
-	Version        int     `json:"Version"`
+	Device         string  `json:"device"`
+	PacketID       int     `json:"packet_id"`
+	Timestamp      string  `json:"timestamp"`
+	RxTime         string  `json:"rx_time"`
+	Altitude       int     `json:"altitude"`
+	Heading        int     `json:"heading"`
+	Latitude       float64 `json:"latitude_deg"`
+	Longitude      float64 `json:"longitude_deg"`
+	GPSJamming     int     `json:"gps_jamming"`
+	GPSSpoofing    int     `json:"gps_spoofing"`
+	Temperature    int     `json:"temperature_c"`
+	BatteryVoltage int     `json:"battery_v"`
+	Speed          int     `json:"speed"`
+	TelemetrySNR   int     `json:"telemetry_snr_db"`
+	TelemetryRSSI  int     `json:"telemetry_rssi_dbm"`
+	TelemetryTime  int     `json:"telemetry_time"`
+	RSSIBackground int     `json:"rssi_background_dbm"`
+	TelemetryType  string  `json:"telemetry_type"`
+	Version        int     `json:"version"`
 }

@@ -75,7 +75,7 @@ loraspaceway.aircentre.io
 ```json
 {
    "device": "F-0x06eb2",
-   "packet Id": 52053866,
+   "packet_id": 52053866,
    "timestamp": "Thu Mar 23 2023 01:00:06 GMT+0000 (Western European Standard Time)",
    "rx_ime": "Thu Mar 23 2023 16:30:52 GMT+0000 (Western European Standard Time)",
    "altitude": 438,
@@ -90,7 +90,7 @@ loraspaceway.aircentre.io
    "telemetry_snr_db": -9,
    "telemetry_rssi_dbm": -114,
    "telemetry_time": 1679526068,
-   "rssi_background": -104,
+   "rssi_background_dbm": -104,
    "telemetry_type": "ASSET_TRACKER",
    "version": 1
  }

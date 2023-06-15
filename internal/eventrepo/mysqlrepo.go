@@ -1,4 +1,4 @@
-package events_repository
+package eventrepo
 
 import (
 	"errors"

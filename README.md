@@ -104,7 +104,7 @@ loraspaceway.aircentre.io
 #### Prerequisites
 - [Go 1.20](https://golang.org/dl/)
 - [Git](https://git-scm.com/downloads)
-- [Docker](https://www.docker.com/products/docker-desktop)
+- [Docker Desktop](https://www.docker.com/products/docker-desktop)
 
 #### Dependencies
 Run `go mod download` to install dependencies

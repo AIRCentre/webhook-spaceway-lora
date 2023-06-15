@@ -1,4 +1,4 @@
-package events_repository
+package eventrepo
 
 type SwarmPayload struct {
 	Device         string  `json:"Device"`

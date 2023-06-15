@@ -1,0 +1,25 @@
+---
+- hosts: all
+  vars:
+    docker_registry_username: "{{ lookup('env','DOCKER_REGISTRY_USERNAME') }}"
+    docker_registry_password: "{{ lookup('env','DOCKER_REGISTRY_PASSWORD') }}"
+    docker_registry_url: "{{ lookup('env','DOCKER_REGISTRY_URL') }}"
+    docker_network_name: "{{ lookup('env','DOCKER_NETWORK_NAME') }}"
+    env_var1: "{{ lookup('env','ENV_VAR1') }}"
+
+  tasks:
+  - name: Login to Docker Registry
+    docker_login:
+      username: "{{ docker_registry_username }}"
+      password: "{{ docker_registry_password }}"
+      registry: "{{ docker_registry_url }}"
+
+  - name: Deploy Docker container
+    docker_container:
+      name: your_container_name
+      image: your_docker_image
+      networks:
+        - name: "{{ docker_network_name }}"
+      restart: unless-stopped
+      env:
+        VAR1: "{{ env_var1 }}"

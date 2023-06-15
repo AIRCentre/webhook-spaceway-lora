@@ -13,7 +13,7 @@ import (
 func TestHandlePushFromSwarm(t *testing.T) {
 	t.Parallel()
 
-	t.Run("make POST request to /hook endpoint with a json payload and verify the data reached the database", func(t *testing.T) {
+	t.Run("sends POST request to downlink endpoint with a swarm payload and verifies that it was stored in the database", func(t *testing.T) {
 		// given
 		payload := `{
 			"Device": "F-0x06eb2",
@@ -56,7 +56,7 @@ func TestHandlePushFromSwarm(t *testing.T) {
 		if err != nil {
 			t.Fatal("failed to connect to test_db, check connection args")
 		}
-		data, err := driver.Query("SELECT * FROM swarm_events")
+		data, err := driver.Query("SELECT * FROM swarm_events WHERE Device='F-0x06eb2'")
 		if err != nil {
 			t.Fatal("query failed, check query string")
 		}

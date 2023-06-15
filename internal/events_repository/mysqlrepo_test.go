@@ -1,16 +1,17 @@
-package mysqlrepo_test
+package events_repository_test
 
 import (
 	"errors"
 	"testing"
 
 	"github.com/AIRCentre/webhook-spaceway-lora/external/mysqldriver"
-	"github.com/AIRCentre/webhook-spaceway-lora/internal/mysqlrepo"
+	"github.com/AIRCentre/webhook-spaceway-lora/internal/events_repository"
+
 	"github.com/AIRCentre/webhook-spaceway-lora/util"
 	"github.com/stretchr/testify/assert"
 )
 
-var ValidPayload mysqlrepo.SwarmPayload = mysqlrepo.SwarmPayload{
+var ValidPayload events_repository.SwarmPayload = events_repository.SwarmPayload{
 	Device:         "F-0x06eb2",
 	PacketID:       52053866,
 	Timestamp:      "Thu Mar 23 2023 01:00:06 GMT+0000 (Western European Standard Time)",
@@ -38,9 +39,9 @@ func TestMysqlRepo(t *testing.T) {
 	t.Run("calling the insert method should exec a query once", func(t *testing.T) {
 		t.Parallel()
 		// given
-		fakePayload := mysqlrepo.SwarmPayload{}
+		fakePayload := events_repository.SwarmPayload{}
 		drivermock := mysqldriver.NewMock()
-		repo := mysqlrepo.New(drivermock)
+		repo := events_repository.NewMysqlRepo(drivermock)
 
 		// when
 		repo.Insert(fakePayload)
@@ -52,7 +53,7 @@ func TestMysqlRepo(t *testing.T) {
 	t.Run("calling the insert method with a valid payload should exec the correct sql insert query #1", func(t *testing.T) {
 		t.Parallel()
 		// given
-		fakePayload := mysqlrepo.SwarmPayload{
+		fakePayload := events_repository.SwarmPayload{
 			Device:         "F-0x06eb2",
 			PacketID:       52053866,
 			Timestamp:      "Thu Mar 23 2023 01:00:06 GMT+0000 (Western European Standard Time)",
@@ -74,7 +75,7 @@ func TestMysqlRepo(t *testing.T) {
 			Version:        1,
 		}
 		drivermock := mysqldriver.NewMock()
-		repo := mysqlrepo.New(drivermock)
+		repo := events_repository.NewMysqlRepo(drivermock)
 
 		// when
 		repo.Insert(fakePayload)
@@ -89,7 +90,7 @@ func TestMysqlRepo(t *testing.T) {
 	t.Run("calling the insert method with a valid payload should exec the correct sql insert query #2", func(t *testing.T) {
 		t.Parallel()
 		// given
-		fakePayload := mysqlrepo.SwarmPayload{
+		fakePayload := events_repository.SwarmPayload{
 			Device:         "H-0x98ab1",
 			PacketID:       98765432,
 			Timestamp:      "Tue Jun 13 2023 10:30:15 GMT+0000 (Western European Standard Time)",
@@ -111,7 +112,7 @@ func TestMysqlRepo(t *testing.T) {
 			Version:        3,
 		}
 		drivermock := mysqldriver.NewMock()
-		repo := mysqlrepo.New(drivermock)
+		repo := events_repository.NewMysqlRepo(drivermock)
 
 		// when
 		repo.Insert(fakePayload)
@@ -128,7 +129,7 @@ func TestMysqlRepo(t *testing.T) {
 		// given
 		drivermock := mysqldriver.NewMock()
 		drivermock.SetError(errors.New("fake db error"))
-		repo := mysqlrepo.New(drivermock)
+		repo := events_repository.NewMysqlRepo(drivermock)
 
 		// when
 		err := repo.Insert(ValidPayload)
@@ -142,7 +143,7 @@ func TestMysqlRepo(t *testing.T) {
 		// given
 		drivermock := mysqldriver.NewMock()
 		drivermock.SetError(errors.New("different err msg"))
-		repo := mysqlrepo.New(drivermock)
+		repo := events_repository.NewMysqlRepo(drivermock)
 
 		// when
 		err := repo.Insert(ValidPayload)

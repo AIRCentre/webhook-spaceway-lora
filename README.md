@@ -77,7 +77,7 @@ loraspaceway.aircentre.io
    "device": "F-0x06eb2",
    "packet Id": 52053866,
    "timestamp": "Thu Mar 23 2023 01:00:06 GMT+0000 (Western European Standard Time)",
-   "rx_ime": "Thu Mar 23 2023 16:30:52 GMT+0000 (Western European Standard Time)",
+   "rx_time": "Thu Mar 23 2023 16:30:52 GMT+0000 (Western European Standard Time)",
    "altitude": 438,
    "heading": 338,
    "latitude_deg": 40.2516,
@@ -102,9 +102,9 @@ loraspaceway.aircentre.io
 ## Development Setup
 
 #### Prerequisites
-- Go 1.20 - available [here](https://golang.org/dl/).
-- Git - available [here](https://git-scm.com/downloads).
-- Docker - available [here](https://www.docker.com/products/docker-desktop).
+- [Go 1.20](https://golang.org/dl/)
+- [Git](https://git-scm.com/downloads)
+- [Docker](https://www.docker.com/products/docker-desktop)
 
 #### Dependencies
 Run `go mod download` to install dependencies

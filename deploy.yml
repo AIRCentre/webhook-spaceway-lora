@@ -27,7 +27,7 @@
         - name: "{{ docker_network_name }}"
       restart_policy: unless-stopped
       state: started
-      pull: always
+      pull: yes
       env:
         MYSQL_USER: "{{ mysql_user }}"
         MYSQL_PASSWD: "{{ mysql_passwd }}"

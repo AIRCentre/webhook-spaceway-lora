@@ -1,10 +1,10 @@
 ---
 - hosts: all
   vars:
-    docker_registry_username: "{{ lookup('env','DOCKER_REGISTRY_USERNAME') }}"
-    docker_registry_password: "{{ lookup('env','DOCKER_REGISTRY_PASSWORD') }}"
-    docker_registry_url: "{{ lookup('env','DOCKER_REGISTRY_URL') }}"
-    docker_network_name: "{{ lookup('env','DOCKER_NETWORK_NAME') }}"
+    docker_registry_username: "{{ lookup('env','github.actor') }}"
+    docker_registry_password: "{{ lookup('env','secrets.GITHUB_TOKEN') }}"
+    docker_registry_url: "ghcr.io"
+    docker_network_name: "proxy_net"
     env_var1: "{{ lookup('env','ENV_VAR1') }}"
 
   tasks:
@@ -22,4 +22,8 @@
         - name: "{{ docker_network_name }}"
       restart: unless-stopped
       env:
-        VAR1: "{{ env_var1 }}"
+        MYSQL_USER: "{{ mysql_user }}"
+        MYSQL_PASSWD: "{{ mysql_passwd }}"
+        MYSQL_HOST: "{{ mysql_host }}"
+        MYSQL_PORT: "{{ mysql_PORT }}"
+        MYSQL_DB_NAME: "{{ mysql_db_name }}"

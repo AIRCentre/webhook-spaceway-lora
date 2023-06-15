@@ -52,6 +52,7 @@ jobs:
         run: docker compose push webhook-spaceway-lora
 
   deploy:
+      needs: build_test_push
       runs-on: ubuntu-latest
 
       steps:
@@ -70,9 +71,9 @@ jobs:
         
         - name: setup depoyment credentials
           run: |
-            echo ${{ secrets.SERVER_PRIV_KEY }} > priv_key
+            echo '${{ secrets.SERVER_PRIV_KEY }}' > priv_key
             chmod 600 priv_key
-            echo ${{ secrets.SERVER_INV }} > inventory
+            echo '${{ secrets.SERVER_INV }}' > inventory
 
         - name: Run Ansible playbook
           # env:

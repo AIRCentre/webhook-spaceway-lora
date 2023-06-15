@@ -26,7 +26,7 @@ func TestHandlePushFromSwarm(t *testing.T) {
 			"longitude_deg": -7.4872,
 			"gps_jamming": 84,
 			"gps_spoofing": 1,
-			"temperature": 19,
+			"temperature_c": 19,
 			"battery_v": 4021,
 			"speed": 0,
 			"telemetry_snr_db": -9,

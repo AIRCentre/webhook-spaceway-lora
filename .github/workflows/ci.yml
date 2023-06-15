@@ -15,7 +15,7 @@ jobs:
         with:
           ssh-private-key: ${{ secrets.SERVER_PRIV_KEY }}
       - name: ping server
-        run: ping -c 3 209.97.176.19
+        run: ssh jgonc@209.97.176.19 "echo ola"
   # build_test_push:
   #   name: Build, Test, and Push
   #   runs-on: ubuntu-latest

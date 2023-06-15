@@ -6,7 +6,14 @@ The repo contains the code of the webhook and all supporting documentation, incl
 
 ### Database  
 + MySQL 8.
-+ Credentials as Github Secrets.
++ Credentials as Github Secrets:
+  + MYSQL_DO_CERTIFICATE
+  + MYSQL_DO_DATABASE
+  + MYSQL_DO_HOST
+  + MYSQL_DO_PORT
+  + MYSQL_DO_PW
+  + MYSQL_DO_SSLMODE
+  + MYSQL_DO_USERNAME
 + Naming tables:
   + English
   + Lowercase

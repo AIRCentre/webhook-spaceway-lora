@@ -81,7 +81,7 @@ func TestMysqlRepo(t *testing.T) {
 		repo.Insert(fakePayload)
 
 		// then
-		expectedQuery := `INSERT INTO swarm_events (device, packet_id, timestamp, rx_time, altitude, heading, latitude_deg, longitude_deg, gps_jamming, gps_spoofing, temperature_c, battery_voltage, speed, telemetry_snr_db, telemetry_rssi_dbm, telemetry_time, rssi_background_dbm, telemetry_type, version)
+		expectedQuery := `INSERT INTO swarm_events (device, packet_id, timestamp, rx_time, altitude, heading, latitude_deg, longitude_deg, gps_jamming, gps_spoofing, temperature_c, battery_v, speed, telemetry_snr_db, telemetry_rssi_dbm, telemetry_time, rssi_background_dbm, telemetry_type, version)
 			VALUES ('F-0x06eb2', 52053866, '2023-03-23 01:00:06', '2023-03-23 16:30:52', 438, 338, 40.251600, -7.487200, 84, 1, 19, 4021, 0, -9, -114, 1679526068, -104, 'ASSET_TRACKER', 1);`
 
 		util.SQLEq(t, expectedQuery, drivermock.GetLastExec())

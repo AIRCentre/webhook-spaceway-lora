@@ -86,7 +86,7 @@ jobs:
               -e "docker_registry_url=ghcr.io" \
               -e "docker_registry_username=${{ github.actor }}" \
               -e "docker_registry_password=${{ secrets.GITHUB_TOKEN }}" \
-              -e "docker_network_name=proxy_net" \
+              -e "docker_network_name=proxy_manager" \
               -e "mysql_user=${{ secrets.MYSQL_DO_USERNAME }}" \
               -e "mysql_passwd=${{ secrets.MYSQL_DO_PW }}" \
               -e "mysql_host=${{ secrets.MYSQL_DO_HOST }}" \

@@ -70,7 +70,7 @@ POST https://loraspaceway.aircentre.io/uplink
 
 ### Body:
 
-The body of the POST request should be a JSON object containing the device data.
+- The body of the POST request should be a JSON object containing the device data.
 
 ### Example:
 + Request: `POST https://loraspaceway.aircentre.io/uplink?access_key=<your_access_key_here>`
@@ -79,7 +79,7 @@ The body of the POST request should be a JSON object containing the device data.
   ```json
   {
     "device": "F-0x06eb2",
-    "packet Id": 52053866,
+    "packet_id": 52053866,
     "timestamp": "Thu Mar 23 2023 01:00:06 GMT+0000 (Western European Standard Time)",
     "rx_time": "Thu Mar 23 2023 16:30:52 GMT+0000 (Western European Standard Time)",
     "altitude": 438,

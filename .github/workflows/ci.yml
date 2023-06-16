@@ -91,4 +91,5 @@ jobs:
               -e "mysql_passwd=${{ secrets.MYSQL_DO_PW }}" \
               -e "mysql_host=${{ secrets.MYSQL_DO_HOST }}" \
               -e "mysql_port=${{ secrets.MYSQL_DO_PORT }}" \
-              -e "mysql_db_name=${{ secrets.MYSQL_DO_DATABASE }}"
+              -e "mysql_db_name=${{ secrets.MYSQL_DO_DATABASE }}" \
+              -e "access_key=${{ secrets.ACCESS_KEY }}"

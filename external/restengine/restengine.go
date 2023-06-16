@@ -5,6 +5,7 @@ import (
 
 	"github.com/AIRCentre/webhook-spaceway-lora/external/mysqldriver"
 	"github.com/AIRCentre/webhook-spaceway-lora/external/restengine/handlers"
+	"github.com/AIRCentre/webhook-spaceway-lora/external/restengine/middlewares"
 	"github.com/AIRCentre/webhook-spaceway-lora/internal/eventrepo"
 	"github.com/gorilla/mux"
 )
@@ -26,6 +27,7 @@ func BuildRouter() *mux.Router {
 	uplinkHandlerFunc := handlers.NewUplinkHandlerFunc(repo)
 
 	router := mux.NewRouter()
+	router.Use(middlewares.AccessKeyMiddleware)
 	router.HandleFunc("/health", healthckeckHandlerFunc).Methods("GET")
 	router.HandleFunc("/uplink", uplinkHandlerFunc).Methods("POST")
 

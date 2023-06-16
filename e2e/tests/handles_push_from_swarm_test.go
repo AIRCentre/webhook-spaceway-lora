@@ -38,7 +38,7 @@ func TestHandlePushFromSwarm(t *testing.T) {
 		}`
 
 		// when
-		statusCode, err := makePostRequest("http://localhost:3000/uplink", payload)
+		statusCode, err := makePostRequest("http://localhost:3000/uplink?access_key=test", payload)
 		if err != nil {
 			t.Fatal("request failed, check args")
 		}

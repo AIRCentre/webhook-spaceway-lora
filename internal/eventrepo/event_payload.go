@@ -1,6 +1,6 @@
 package eventrepo
 
-type SwarmPayload struct {
+type EventPayload struct {
 	Device         string  `json:"device"`
 	PacketID       int     `json:"packet_id"`
 	Timestamp      string  `json:"timestamp"`

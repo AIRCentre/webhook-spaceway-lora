@@ -11,7 +11,7 @@ import (
 	"github.com/stretchr/testify/assert"
 )
 
-var ValidPayload eventrepo.SwarmPayload = eventrepo.SwarmPayload{
+var ValidPayload eventrepo.EventPayload = eventrepo.EventPayload{
 	Device:         "F-0x06eb2",
 	PacketID:       52053866,
 	Timestamp:      "Thu Mar 23 2023 01:00:06 GMT+0000 (Western European Standard Time)",
@@ -39,7 +39,7 @@ func TestMysqlRepo(t *testing.T) {
 	t.Run("calling the insert method should exec a query once", func(t *testing.T) {
 		t.Parallel()
 		// given
-		fakePayload := eventrepo.SwarmPayload{}
+		fakePayload := eventrepo.EventPayload{}
 		drivermock := mysqldriver.NewMock()
 		repo := eventrepo.NewMysqlRepo(drivermock)
 
@@ -53,7 +53,7 @@ func TestMysqlRepo(t *testing.T) {
 	t.Run("calling the insert method with a valid payload should exec the correct sql insert query #1", func(t *testing.T) {
 		t.Parallel()
 		// given
-		fakePayload := eventrepo.SwarmPayload{
+		fakePayload := eventrepo.EventPayload{
 			Device:         "F-0x06eb2",
 			PacketID:       52053866,
 			Timestamp:      "Thu Mar 23 2023 01:00:06 GMT+0000 (Western European Standard Time)",
@@ -90,7 +90,7 @@ func TestMysqlRepo(t *testing.T) {
 	t.Run("calling the insert method with a valid payload should exec the correct sql insert query #2", func(t *testing.T) {
 		t.Parallel()
 		// given
-		fakePayload := eventrepo.SwarmPayload{
+		fakePayload := eventrepo.EventPayload{
 			Device:         "H-0x98ab1",
 			PacketID:       98765432,
 			Timestamp:      "Tue Jun 13 2023 10:30:15 GMT+0000 (Western European Standard Time)",

@@ -1,15 +1,15 @@
-package engine
+package restengine
 
 import (
 	"os"
 
-	"github.com/AIRCentre/webhook-spaceway-lora/external/api/handlers"
 	"github.com/AIRCentre/webhook-spaceway-lora/external/mysqldriver"
+	"github.com/AIRCentre/webhook-spaceway-lora/external/restengine/handlers"
 	"github.com/AIRCentre/webhook-spaceway-lora/internal/eventrepo"
 	"github.com/gorilla/mux"
 )
 
-func Init() *mux.Router {
+func BuildRouter() *mux.Router {
 	mysqlDriver, err := mysqldriver.New(
 		os.Getenv("MYSQL_USER"),
 		os.Getenv("MYSQL_PASSWD"),

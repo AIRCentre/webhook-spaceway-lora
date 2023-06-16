@@ -10,7 +10,7 @@ import (
 
 func NewUplinkHandlerFunc(repo eventrepo.I) http.HandlerFunc {
 	return func(w http.ResponseWriter, r *http.Request) {
-		var payload eventrepo.SwarmPayload
+		var payload eventrepo.EventPayload
 		err := json.NewDecoder(r.Body).Decode(&payload)
 		if err != nil {
 			fmt.Println(err.Error())

@@ -13,8 +13,8 @@ type mysqlrepo struct {
 	mysqlDriver mysqldriver.I
 }
 
-func (r *mysqlrepo) Insert(payload SwarmPayload) error {
-	q := insertQuery(payload)
+func (r *mysqlrepo) Insert(payload EventPayload) error {
+	q := buildQuery(payload)
 	_, _, err := r.mysqlDriver.Exec(q)
 	if err != nil {
 		return errors.New("insert failed due to mysql driver error: " + err.Error())
@@ -48,7 +48,7 @@ func formatTimestamp(ts string) string {
 	return formattedDate
 }
 
-func insertQuery(payload SwarmPayload) string {
+func buildQuery(payload EventPayload) string {
 	query := fmt.Sprintf(`
 		INSERT INTO swarm_events (device, packet_id, timestamp, rx_time, altitude, heading, latitude_deg, longitude_deg, gps_jamming, gps_spoofing, temperature_c, battery_v, speed, telemetry_snr_db, telemetry_rssi_dbm, telemetry_time, rssi_background_dbm, telemetry_type, version)
 		VALUES ('%s', %d, '%s', '%s', %d, %d, %f, %f, %d, %d, %d, %d, %d, %d, %d, %d, %d, '%s', %d);`,

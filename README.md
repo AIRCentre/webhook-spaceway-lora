@@ -146,6 +146,6 @@ Run `go mod download` to install dependencies
 
 
 ## CI/CD
-This project leverages GitHub Actions for a CI/CD process. Each commit triggers a pipeline which builds, tests, and pushes a new Docker image called `webhook-spaceway-lora` to [GitHub's container Registry (ghcr.io)](https://github.com/AIRCentre/webhook-spaceway-lora/pkgs/container/webhook-spaceway-lora). Ansible, within the GitHub Actions workflow, deploys this updated image automatically.
+This project leverages GitHub Actions for a CI/CD process. Each commit triggers a workflow which builds, tests, and pushes a new Docker image called `webhook-spaceway-lora` to [GitHub's container Registry (ghcr.io)](https://github.com/AIRCentre/webhook-spaceway-lora/pkgs/container/webhook-spaceway-lora). Ansible, within the GitHub Actions workflow, deploys this updated image automatically.
 
 To skip the workflow, add `no-ci` in the commit message - helpful when updating non-impactful files like the readme.

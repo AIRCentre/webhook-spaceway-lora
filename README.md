@@ -71,9 +71,35 @@ POST https://loraspaceway.aircentre.io/uplink
 ### Body:
 
 - The body of the POST request should be a JSON object containing the device data.
+- JSON object:
+  ```json
+   {
+    "device": "",
+    "packet_id": 0,
+    "timestamp": "RFC 822/1123 date-time format",
+    "rx_time": "RFC 822/1123 date-time format",
+    "altitude": 0.0,
+    "heading": 0,
+    "latitude_deg": 0.0,
+    "longitude_deg": 0.0,
+    "gps_jamming": 0,
+    "gps_spoofing": 0,
+    "temperature_c": 0.0,
+    "battery_v": 0,
+    "speed": 0.0,
+    "telemetry_snr_db": 0.0,
+    "telemetry_rssi_dbm": 0,
+    "telemetry_time": 0,
+    "rssi_background": 0,
+    "telemetry_type": "",
+    "version": 0
+  }
+  ```
 
-### Example:
-+ Request: `POST https://loraspaceway.aircentre.io/uplink?access_key=<your_access_key_here>`
+
+### Example Request:
++ Method: `POST`
++ URL: `https://loraspaceway.aircentre.io/uplink?access_key=your_access_key_here`
 + Headers: `Content-Type: application/json`
 + Body:
   ```json

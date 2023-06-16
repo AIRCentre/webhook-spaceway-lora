@@ -71,7 +71,7 @@ POST https://loraspaceway.aircentre.io/uplink
 ### Body:
 
 - The body of the POST request should be a JSON object containing the device data.
-- JSON object:
+- JSON object format:
   ```json
    {
     "device": "",

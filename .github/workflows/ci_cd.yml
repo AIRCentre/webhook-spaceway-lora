@@ -52,6 +52,7 @@ jobs:
         run: docker compose push webhook-spaceway-lora
 
   deploy:
+      name: Deploy
       needs: build_test_push
       runs-on: ubuntu-latest
       steps:

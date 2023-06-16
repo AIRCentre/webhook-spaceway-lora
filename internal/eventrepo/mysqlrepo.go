@@ -21,6 +21,32 @@ func (r *mysqlrepo) Insert(payload EventPayload) error {
 	return nil
 }
 
+// func formatTimestamp(ts string) string {
+// 	// Remove the "(Western European Standard Time)" part
+// 	index := strings.Index(ts, "(")
+// 	if index != -1 {
+// 		ts = strings.TrimSpace(ts[:index])
+// 	}
+
+// 	// Define the input date format
+// 	inputFormat := "Mon Jan 2 2006 15:04:05 GMT-0700"
+
+// 	// Parse the input date string
+// 	t, err := time.Parse(inputFormat, ts)
+// 	if err != nil {
+// 		return "0000-00-00 00:00:00" // Replace with a sensible default or handle the error as appropriate for your use case.
+
+// 	}
+
+// 	// Define the output date format
+// 	outputFormat := "2006-01-02 15:04:05"
+
+// 	// Format the date as per the SQL format
+// 	formattedDate := t.Format(outputFormat)
+
+// 	return formattedDate
+// }
+
 // func parseUnixEpochTime(epoch int64) string {
 // 	t := time.Unix(epoch, 0)
 // 	return t.Format("2006-01-02 15:04:05")

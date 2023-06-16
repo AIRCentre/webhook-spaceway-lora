@@ -53,56 +53,52 @@ loraspaceway.aircentre.io
 3. Webhook monitoring and control services  
 
 
-## Example payload
-```json
-{
-   "Device": "F-0x06eb2",
-   "Packet Id": 52053866,
-   "Timestamp": "Thu Mar 23 2023 01:00:06 GMT+0000 (Western European Standard Time)",
-   "Rx Time": "Thu Mar 23 2023 16:30:52 GMT+0000 (Western European Standard Time)",
-   "Altitude": 438,
-   "Heading": 338,
-   "Latitude": 40.2516,
-   "Longitude": -7.4872,
-   "GPS Jamming": 84,
-   "GPS Spoofing": 1,
-   "Temperature": 19,
-   "Battery Voltage": 4021,
-   "Speed": 0,
-   "Telemetry SNR": -9,
-   "Telemetry RSSI": -114,
-   "Telemetry Time": 1679526068,
-   "RSSI Background": -104,
-   "Telemetry Type": "ASSET_TRACKER",
-   "Version": 1
- }
+## Usage
+
+Send a `POST` request to the following endpoint to send device data to the webhook:
+```
+POST https://loraspaceway.aircentre.io/uplink
 ```
 
-## Key-renamed payload equivalent for database coherence
-```json
-{
-   "device": "F-0x06eb2",
-   "packet Id": 52053866,
-   "timestamp": "Thu Mar 23 2023 01:00:06 GMT+0000 (Western European Standard Time)",
-   "rx_time": "Thu Mar 23 2023 16:30:52 GMT+0000 (Western European Standard Time)",
-   "altitude": 438,
-   "heading": 338,
-   "latitude_deg": 40.2516,
-   "longitude_deg": -7.4872,
-   "gps_jamming": 84,
-   "gps_spoofing": 1,
-   "temperature_c": 19,
-   "battery_v": 4021,
-   "speed": 0,
-   "telemetry_snr_db": -9,
-   "telemetry_rssi_dbm": -114,
-   "telemetry_time": 1679526068,
-   "rssi_background": -104,
-   "telemetry_type": "ASSET_TRACKER",
-   "version": 1
- }
-```
+### Parameters:
 
+- **access_key (mandatory)**: String that grants access to the webhook.
+
+### Headers:
+
+- **Content-Type**: `application/json`
+
+### Body:
+
+The body of the POST request should be a JSON object containing the device data.
+
+### Example:
++ Request: `POST https://loraspaceway.aircentre.io/uplink?access_key=<your_access_key_here>`
++ Headers: `Content-Type: application/json`
++ Body:
+  ```json
+  {
+    "device": "F-0x06eb2",
+    "packet Id": 52053866,
+    "timestamp": "Thu Mar 23 2023 01:00:06 GMT+0000 (Western European Standard Time)",
+    "rx_time": "Thu Mar 23 2023 16:30:52 GMT+0000 (Western European Standard Time)",
+    "altitude": 438,
+    "heading": 338,
+    "latitude_deg": 40.2516,
+    "longitude_deg": -7.4872,
+    "gps_jamming": 84,
+    "gps_spoofing": 1,
+    "temperature_c": 19,
+    "battery_v": 4021,
+    "speed": 0,
+    "telemetry_snr_db": -9,
+    "telemetry_rssi_dbm": -114,
+    "telemetry_time": 1679526068,
+    "rssi_background": -104,
+    "telemetry_type": "ASSET_TRACKER",
+    "version": 1
+  }
+  ```
 
 
 

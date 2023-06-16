@@ -12,23 +12,23 @@ import (
 )
 
 var ValidPayload eventrepo.EventPayload = eventrepo.EventPayload{
-	Dt: 1686920651,
-	Lt: 38.6534,
-	Ln: -27.2188,
-	Al: 10,
-	Sp: 1,
-	Hd: 0,
-	Gj: 90,
-	Gs: 1,
-	Bv: 4000,
-	Tp: 28,
-	Rs: -112,
-	Tr: 0,
-	Ts: 0,
-	Td: 0,
-	Hp: 331,
-	Vp: 420,
-	Tf: 161914,
+	Timestamp:      1686920651,
+	Latitude:       38.6534,
+	Longitude:      -27.2188,
+	Altitude:       10,
+	Speed:          1,
+	Heading:        0,
+	GPSJamming:     90,
+	GPSSpoofing:    1,
+	BatteryVoltage: 4000,
+	Temperature:    28,
+	RSSI:           -112,
+	Tr:             0,
+	Ts:             0,
+	Td:             0,
+	Hp:             331,
+	Vp:             420,
+	Tf:             161914,
 }
 
 func TestMysqlRepo(t *testing.T) {
@@ -52,23 +52,23 @@ func TestMysqlRepo(t *testing.T) {
 		t.Parallel()
 		// given
 		fakePayload := eventrepo.EventPayload{
-			Dt: 1686920652,
-			Lt: 38.6532,
-			Ln: -27.2182,
-			Al: 12,
-			Sp: 2,
-			Hd: 2,
-			Gj: 92,
-			Gs: 2,
-			Bv: 4002,
-			Tp: 22,
-			Rs: -114,
-			Tr: 2,
-			Ts: 2,
-			Td: 2,
-			Hp: 332,
-			Vp: 422,
-			Tf: 161912,
+			Timestamp:      1686920652,
+			Latitude:       38.6532,
+			Longitude:      -27.2182,
+			Altitude:       12,
+			Speed:          2,
+			Heading:        2,
+			GPSJamming:     92,
+			GPSSpoofing:    2,
+			BatteryVoltage: 4002,
+			Temperature:    22,
+			RSSI:           -114,
+			Tr:             2,
+			Ts:             2,
+			Td:             2,
+			Hp:             332,
+			Vp:             422,
+			Tf:             161912,
 		}
 		drivermock := mysqldriver.NewMock()
 		repo := eventrepo.NewMysqlRepo(drivermock)
@@ -78,7 +78,7 @@ func TestMysqlRepo(t *testing.T) {
 
 		// then
 		expectedQuery := `INSERT INTO swarm_events (timestamp, latitude_deg, longitude_deg, altitude, speed, heading, gps_jamming, gps_spoofing, battery_v, temperature_c, rssi_dbm,tr, ts, td, hp, vp, tf)
-			VALUES (1686920652, 38.6532, -27.2182, 12, 2, 2, 92, 2, 4002, 22, -114, 2, 2, 2, 332, 422, 161912);`
+			VALUES (1686920652, 38.653200, -27.218200, 12, 2, 2, 92, 2, 4002, 22, -114, 2, 2, 2, 332, 422, 161912);`
 
 		util.SQLEq(t, expectedQuery, drivermock.GetLastExec())
 	})
@@ -87,23 +87,23 @@ func TestMysqlRepo(t *testing.T) {
 		t.Parallel()
 		// given
 		fakePayload := eventrepo.EventPayload{
-			Dt: 1686920653,
-			Lt: 38.6533,
-			Ln: -27.2183,
-			Al: 13,
-			Sp: 3,
-			Hd: 3,
-			Gj: 93,
-			Gs: 3,
-			Bv: 4003,
-			Tp: 23,
-			Rs: -113,
-			Tr: 3,
-			Ts: 3,
-			Td: 3,
-			Hp: 333,
-			Vp: 423,
-			Tf: 161913,
+			Timestamp:      1686920653,
+			Latitude:       38.6533,
+			Longitude:      -27.2183,
+			Altitude:       13,
+			Speed:          3,
+			Heading:        3,
+			GPSJamming:     93,
+			GPSSpoofing:    3,
+			BatteryVoltage: 4003,
+			Temperature:    23,
+			RSSI:           -113,
+			Tr:             3,
+			Ts:             3,
+			Td:             3,
+			Hp:             333,
+			Vp:             423,
+			Tf:             161913,
 		}
 		drivermock := mysqldriver.NewMock()
 		repo := eventrepo.NewMysqlRepo(drivermock)
@@ -113,7 +113,7 @@ func TestMysqlRepo(t *testing.T) {
 
 		// then
 		expectedQuery := `INSERT INTO swarm_events (timestamp, latitude_deg, longitude_deg, altitude, speed, heading, gps_jamming, gps_spoofing, battery_v, temperature_c, rssi_dbm,tr, ts, td, hp, vp, tf)
-			VALUES (1686920653, 38.6533, -27.2183, 13, 3, 3, 93, 3, 4003, 23, -113, 3, 3, 3, 333, 423, 161913);`
+			VALUES (1686920653, 38.653300, -27.218300, 13, 3, 3, 93, 3, 4003, 23, -113, 3, 3, 3, 333, 423, 161913);`
 
 		util.SQLEq(t, expectedQuery, drivermock.GetLastExec())
 	})

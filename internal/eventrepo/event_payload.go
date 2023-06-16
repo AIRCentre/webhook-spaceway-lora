@@ -1,23 +1,23 @@
 package eventrepo
 
 type EventPayload struct {
-	Dt int64   `json:"timestamp"`
-	Lt float64 `json:"latitude_deg"`
-	Ln float64 `json:"longitude_deg"`
-	Al int     `json:"altitude"`
-	Sp int     `json:"speed"`
-	Hd int     `json:"heading"`
-	Gj int     `json:"gps_jamming"`
-	Gs int     `json:"gps_spoofing"`
-	Bv int     `json:"battery_v"`
-	Tp int     `json:"temperature_c"`
-	Rs int     `json:"rssi_dbm"`
-	Tr int     `json:"tr"`
-	Ts int     `json:"ts"`
-	Td int     `json:"td"`
-	Hp int     `json:"hp"`
-	Vp int     `json:"vp"`
-	Tf int     `json:"tf"`
+	Timestamp      int64   `json:"dt"`
+	Latitude       float64 `json:"lt"`
+	Longitude      float64 `json:"ln"`
+	Altitude       int     `json:"al"`
+	Speed          int     `json:"sp"`
+	Heading        int     `json:"hd"`
+	GPSJamming     int     `json:"gj"`
+	GPSSpoofing    int     `json:"gs"`
+	BatteryVoltage int     `json:"bv"`
+	Temperature    int     `json:"tp"`
+	RSSI           int     `json:"rs"`
+	Tr             int     `json:"tr"`
+	Ts             int     `json:"ts"`
+	Td             int     `json:"td"`
+	Hp             int     `json:"hp"`
+	Vp             int     `json:"vp"`
+	Tf             int     `json:"tf"`
 }
 
 // type EventPayload struct {

@@ -4,7 +4,6 @@ import (
 	"errors"
 	"fmt"
 	"strings"
-	"time"
 
 	"github.com/AIRCentre/webhook-spaceway-lora/external/mysqldriver"
 )
@@ -22,58 +21,26 @@ func (r *mysqlrepo) Insert(payload EventPayload) error {
 	return nil
 }
 
-// func formatTimestamp(ts string) string {
-// 	// Remove the "(Western European Standard Time)" part
-// 	index := strings.Index(ts, "(")
-// 	if index != -1 {
-// 		ts = strings.TrimSpace(ts[:index])
-// 	}
-
-// 	// Define the input date format
-// 	inputFormat := "Mon Jan 2 2006 15:04:05 GMT-0700"
-
-// 	// Parse the input date string
-// 	t, err := time.Parse(inputFormat, ts)
-// 	if err != nil {
-// 		return "0000-00-00 00:00:00" // Replace with a sensible default or handle the error as appropriate for your use case.
-
-// 	}
-
-// 	// Define the output date format
-// 	outputFormat := "2006-01-02 15:04:05"
-
-// 	// Format the date as per the SQL format
-// 	formattedDate := t.Format(outputFormat)
-
-// 	return formattedDate
+// func parseUnixEpochTime(epoch int64) string {
+// 	t := time.Unix(epoch, 0)
+// 	return t.Format("2006-01-02 15:04:05")
 // }
-
-func parseUnixEpochTime(epoch int64) string {
-	t := time.Unix(epoch, 0)
-	return t.Format("2006-01-02 15:04:05")
-}
-
-func formatTimestamp(arg int64) {
-	epochTime := int64(arg) // Example epoch time: 2021-06-17 00:00:00
-	dateString := parseUnixEpochTime(epochTime)
-	fmt.Println(dateString) // Output: 2021-06-17 00:00:00
-}
 
 func buildQuery(payload EventPayload) string {
 	query := fmt.Sprintf(`
 		INSERT INTO swarm_events (timestamp, latitude_deg, longitude_deg, altitude, speed, heading, gps_jamming, gps_spoofing, battery_v, temperature_c, rssi_dbm, tr, ts, td, hp, vp, tf)
 		VALUES (%d, %f, %f, %d, %d, %d, %d, %d, %d, %d, %d, %d, %d, %d, %d, %d, %d);`,
-		formatTimestamp(payload.Dt),
-		payload.Lt,
-		payload.Ln,
-		payload.Al,
-		payload.Sp,
-		payload.Hd,
-		payload.Gj,
-		payload.Gs,
-		payload.Bv,
-		payload.Tp,
-		payload.Rs,
+		payload.Timestamp,
+		payload.Latitude,
+		payload.Longitude,
+		payload.Altitude,
+		payload.Speed,
+		payload.Heading,
+		payload.GPSJamming,
+		payload.GPSSpoofing,
+		payload.BatteryVoltage,
+		payload.Temperature,
+		payload.RSSI,
 		payload.Tr,
 		payload.Ts,
 		payload.Td,

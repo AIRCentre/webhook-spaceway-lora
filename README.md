@@ -117,11 +117,7 @@ Run `go mod download` to install dependencies
 - Run `sh ./e2e/run_tests.sh` to execute end-to-end tests
 
 
-## CI Workflow
-This project uses GitHub Actions to enable continous integration (CI).
+## CI/CD Workflow
+This project leverages GitHub Actions for a CI/CD process. Each commit triggers a pipeline which builds, tests, and pushes a new Docker image called `webhook-spaceway-lora` to [GitHub's container Registry (ghcr.io)](https://github.com/AIRCentre/webhook-spaceway-lora/pkgs/container/webhook-spaceway-lora). Ansible, within the GitHub Actions workflow, deploys this updated image automatically.
 
-On every commit, the pipeline builds, tests and pushes a new version of a Docker image called `webhook-spaceway-lora` to GitHub's container Registry (ghcr.io). It becomes avaliable in [AIR Centre's GitHub Packages page](https://github.com/orgs/AIRCentre/packages). 
-
-Include `no-ci` in the commit message to prevent the workflow from running. This is useful when updating just the readme or other files that dont affect system behavior.
-
-
+To skip the workflow, add `no-ci` in the commit message - helpful when updating non-impactful files like the readme.

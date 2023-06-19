@@ -109,11 +109,20 @@ CREATE TABLE IF NOT EXISTS Vessel_location.swarm_events(
    hp INT,
    vp INT,
    tf INT,
+   signal_strength VARCHAR(20),
    PRIMARY KEY (id),
    UNIQUE KEY id_UNIQUE (id)
 );
 
 
+--- Set auto-fill to column signal_strength
+UPDATE Vessel_location.swarm_events
+SET signal_strength = CASE
+    WHEN rssi_dbm >= -50 THEN 'strong'
+    WHEN rssi_dbm >= -70 THEN 'moderate'
+    WHEN rssi_dbm >= -80 THEN 'weak'
+    ELSE 'unknown_signal'
+    END;
 
 -- -- Cretate table for SWARM data
 -- CREATE TABLE IF NOT EXISTS Vessel_location.swarm_events(

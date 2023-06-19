@@ -115,7 +115,7 @@ CREATE TABLE IF NOT EXISTS Vessel_location.swarm_events(
 );
 
 
---- Set auto-fill to column signal_strength
+--- Set auto-fill condition
 UPDATE Vessel_location.swarm_events
 SET signal_strength = CASE
     WHEN rssi_dbm >= -50 THEN 'strong'

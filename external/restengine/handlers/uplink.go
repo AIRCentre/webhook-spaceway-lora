@@ -5,6 +5,7 @@ import (
 	"encoding/json"
 	"fmt"
 	"io"
+	"log"
 	"net/http"
 
 	"github.com/AIRCentre/webhook-spaceway-lora/internal/eventrepo"
@@ -17,7 +18,7 @@ func NewUplinkHandlerFunc(repo eventrepo.I) http.HandlerFunc {
 			http.Error(w, "Failed to read request body", http.StatusInternalServerError)
 			return
 		}
-		fmt.Printf("Request Body: %s", body)
+		log.Printf("payload recieved!\n%s", body)
 		reader := io.NopCloser(bytes.NewBuffer(body))
 		var payload eventrepo.EventPayload
 		err = json.NewDecoder(reader).Decode(&payload)

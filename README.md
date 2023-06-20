@@ -54,6 +54,21 @@ loraspaceway.aircentre.io
 2.1 Notes for the deployment of the Dockerfile  
 3. Webhook monitoring and control services  
 
+## Examles of actual device payloads
+```json
+// payload 1
+{"packetId":63464221,"deviceType":1,"deviceId":28338,"userApplicationId":65002,"organizationId":66429,"data":"eyJkdCI6MTY4NzE5OTQ1MCwibHQiOjM4LjY1NTIsImxuIjotMjcuMjE5MywiYWwiOjMzLCJzcCI6OSwiaGQiOjY1LCJnaiI6ODksImdzIjoxLCJidiI6MzkyMCwidHAiOjI2LCJycyI6LTgyLCJ0ciI6LTExNSwidHMiOi0yLCJ0ZCI6MTY4NzE5NjUwOSwiaHAiOjEyNjYsInZwIjoxMDAsInRmIjoyMDU0NDB9","len":174,"status":0,"hiveRxTime":"2023-06-20T11:33:56"}
+
+// payload 1 data after base64 decode
+{"dt":1687199450,"lt":38.6552,"ln":-27.2193,"al":33,"sp":9,"hd":65,"gj":89,"gs":1,"bv":3920,"tp":26,"rs":-82,"tr":-115,"ts":-2,"td":1687196509,"hp":1266,"vp":100,"tf":205440}
+
+// payload 2
+{"packetId":63476528,"deviceType":1,"deviceId":28338,"userApplicationId":65002,"organizationId":66429,"data":"eyJkdCI6MTY4NzI2NzY4MiwibHQiOjM4LjY3NDUsImxuIjotMjcuMjUwNywiYWwiOjEzMywic3AiOjYsImhkIjoxMDAsImdqIjo4NSwiZ3MiOjEsImJ2IjozODk4LCJ0cCI6MzMsInJzIjotMTExLCJ0ciI6LTExNSwidHMiOi02LCJ0ZCI6MTY4NzI2NzY3MywiaHAiOjEzMiwidnAiOjIzNCwidGYiOjIxMTYwfQ==","len":175,"status":0,"hiveRxTime":"2023-06-20T13:31:26"}
+
+// payload 2 data after base64 decode
+{"dt":1687267682,"lt":38.6745,"ln":-27.2507,"al":133,"sp":6,"hd":100,"gj":85,"gs":1,"bv":3898,"tp":33,"rs":-111,"tr":-115,"ts":-6,"td":1687267673,"hp":132,"vp":234,"tf":21160}
+```
+
 
 ## Usage
 
@@ -75,27 +90,7 @@ POST https://loraspaceway.aircentre.io/uplink
 - The body of the POST request should be a JSON object containing the device data.
 - JSON object format:
   ```json
-   {
-    "device": "",
-    "packet_id": 0,
-    "timestamp": "RFC 822/1123 date-time format",
-    "rx_time": "RFC 822/1123 date-time format",
-    "altitude": 0.0,
-    "heading": 0,
-    "latitude_deg": 0.0,
-    "longitude_deg": 0.0,
-    "gps_jamming": 0,
-    "gps_spoofing": 0,
-    "temperature_c": 0.0,
-    "battery_v": 0,
-    "speed": 0.0,
-    "telemetry_snr_db": 0.0,
-    "telemetry_rssi_dbm": 0,
-    "telemetry_time": 0,
-    "rssi_background": 0,
-    "telemetry_type": "",
-    "version": 0
-  }
+  TODO
   ```
 
 
@@ -105,27 +100,7 @@ POST https://loraspaceway.aircentre.io/uplink
 + Headers: `Content-Type: application/json`
 + Body:
   ```json
-  {
-    "device": "F-0x06eb2",
-    "packet_id": 52053866,
-    "timestamp": "Thu Mar 23 2023 01:00:06 GMT+0000 (Western European Standard Time)",
-    "rx_time": "Thu Mar 23 2023 16:30:52 GMT+0000 (Western European Standard Time)",
-    "altitude": 438,
-    "heading": 338,
-    "latitude_deg": 40.2516,
-    "longitude_deg": -7.4872,
-    "gps_jamming": 84,
-    "gps_spoofing": 1,
-    "temperature_c": 19,
-    "battery_v": 4021,
-    "speed": 0,
-    "telemetry_snr_db": -9,
-    "telemetry_rssi_dbm": -114,
-    "telemetry_time": 1679526068,
-    "rssi_background": -104,
-    "telemetry_type": "ASSET_TRACKER",
-    "version": 1
-  }
+  TODO
   ```
 
 

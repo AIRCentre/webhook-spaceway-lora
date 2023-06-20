@@ -92,6 +92,7 @@ CREATE DATABASE IF NOT EXISTS Vessel_location;
 -- Cretate table for SWARM data
 CREATE TABLE IF NOT EXISTS Vessel_location.swarm_events(
    id INT UNSIGNED NOT NULL AUTO_INCREMENT,  
+   device_id VARCHAR(45),
    timestamp INT,
    latitude_deg FLOAT,
    longitude_deg FLOAT,
@@ -115,7 +116,7 @@ CREATE TABLE IF NOT EXISTS Vessel_location.swarm_events(
 );
 
 
---- Set auto-fill condition
+-- Set auto-fill condition
 UPDATE Vessel_location.swarm_events
 SET signal_strength = CASE
     WHEN rssi_dbm >= -50 THEN 'strong'

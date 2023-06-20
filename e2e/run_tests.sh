@@ -9,7 +9,7 @@ go clean -testcache && go test ./e2e/tests/... -v
 
 # print logs
 echo "\n[CONTAINER LOGS]"
-docker compose logs webhook-spaceway-lora
+docker compose logs
 
 # taredown e2e testing env
 docker compose down -v --rmi local

@@ -6,8 +6,8 @@ import (
 
 	"github.com/AIRCentre/webhook-spaceway-lora/external/mysqldriver"
 	"github.com/AIRCentre/webhook-spaceway-lora/internal/eventrepo"
-
 	"github.com/AIRCentre/webhook-spaceway-lora/util"
+
 	"github.com/stretchr/testify/assert"
 )
 
@@ -42,7 +42,7 @@ func TestMysqlRepo(t *testing.T) {
 		repo := eventrepo.NewMysqlRepo(drivermock)
 
 		// when
-		repo.Insert(fakePayload)
+		repo.Insert("", fakePayload)
 
 		// then
 		assert.Equal(t, 1, drivermock.ExecCallCount)
@@ -51,6 +51,7 @@ func TestMysqlRepo(t *testing.T) {
 	t.Run("calling the insert method with a valid payload should exec the correct sql insert query #1", func(t *testing.T) {
 		t.Parallel()
 		// given
+		deviceId := "123456"
 		fakePayload := eventrepo.EventPayload{
 			Timestamp:      1686920652,
 			Latitude:       38.6532,
@@ -74,11 +75,11 @@ func TestMysqlRepo(t *testing.T) {
 		repo := eventrepo.NewMysqlRepo(drivermock)
 
 		// when
-		repo.Insert(fakePayload)
+		repo.Insert(deviceId, fakePayload)
 
 		// then
-		expectedQuery := `INSERT INTO swarm_events (timestamp, latitude_deg, longitude_deg, altitude, speed, heading, gps_jamming, gps_spoofing, battery_v, temperature_c, rssi_dbm,tr, ts, td, hp, vp, tf)
-			VALUES (1686920652, 38.653200, -27.218200, 12, 2, 2, 92, 2, 4002, 22, -114, 2, 2, 2, 332, 422, 161912);`
+		expectedQuery := `INSERT INTO swarm_events (device_id, timestamp, latitude_deg, longitude_deg, altitude, speed, heading, gps_jamming, gps_spoofing, battery_v, temperature_c, rssi_dbm,tr, ts, td, hp, vp, tf)
+			VALUES ('123456', 1686920652, 38.653200, -27.218200, 12, 2, 2, 92, 2, 4002, 22, -114, 2, 2, 2, 332, 422, 161912);`
 
 		util.SQLEq(t, expectedQuery, drivermock.GetLastExec())
 	})
@@ -109,11 +110,11 @@ func TestMysqlRepo(t *testing.T) {
 		repo := eventrepo.NewMysqlRepo(drivermock)
 
 		// when
-		repo.Insert(fakePayload)
+		repo.Insert("789012", fakePayload)
 
 		// then
-		expectedQuery := `INSERT INTO swarm_events (timestamp, latitude_deg, longitude_deg, altitude, speed, heading, gps_jamming, gps_spoofing, battery_v, temperature_c, rssi_dbm,tr, ts, td, hp, vp, tf)
-			VALUES (1686920653, 38.653300, -27.218300, 13, 3, 3, 93, 3, 4003, 23, -113, 3, 3, 3, 333, 423, 161913);`
+		expectedQuery := `INSERT INTO swarm_events (device_id, timestamp, latitude_deg, longitude_deg, altitude, speed, heading, gps_jamming, gps_spoofing, battery_v, temperature_c, rssi_dbm,tr, ts, td, hp, vp, tf)
+			VALUES ('789012', 1686920653, 38.653300, -27.218300, 13, 3, 3, 93, 3, 4003, 23, -113, 3, 3, 3, 333, 423, 161913);`
 
 		util.SQLEq(t, expectedQuery, drivermock.GetLastExec())
 	})
@@ -126,7 +127,7 @@ func TestMysqlRepo(t *testing.T) {
 		repo := eventrepo.NewMysqlRepo(drivermock)
 
 		// when
-		err := repo.Insert(ValidPayload)
+		err := repo.Insert("123", ValidPayload)
 
 		// then
 		assert.EqualError(t, err, "insert failed due to mysql driver error: fake db error")
@@ -140,7 +141,7 @@ func TestMysqlRepo(t *testing.T) {
 		repo := eventrepo.NewMysqlRepo(drivermock)
 
 		// when
-		err := repo.Insert(ValidPayload)
+		err := repo.Insert("123", ValidPayload)
 
 		// then
 		assert.EqualError(t, err, "insert failed due to mysql driver error: different err msg")

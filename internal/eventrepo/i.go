@@ -1,5 +1,5 @@
 package eventrepo
 
 type I interface {
-	Insert(EventPayload) error
+	Insert(deviceId string, payload EventPayload) error
 }

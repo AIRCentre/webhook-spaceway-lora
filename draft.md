@@ -146,7 +146,7 @@ FOR EACH ROW
 BEGIN
   SET NEW.signal_quality =
     CASE
-      WHEN NEW.rssi_dbm < -120 OR NEW.snr_db < -20 THEN 'Very Poor Signal Quality'
+      WHEN NEW.rssi_dbm < -120 OR NEW.snr_db < -20 THEN 'Very Poor'
       WHEN (NEW.rssi_dbm >= -120 AND NEW.rssi_dbm <= -110) OR (NEW.snr_db >= -20 AND NEW.snr_db <= -10) THEN 'Poor'
       WHEN (NEW.rssi_dbm >= -110 AND NEW.rssi_dbm <= -100) OR (NEW.snr_db >= -10 AND NEW.snr_db <= 0) THEN 'Fair'
       WHEN (NEW.rssi_dbm >= -100 AND NEW.rssi_dbm <= -90) OR (NEW.snr_db >= 0 AND NEW.snr_db <= 10) THEN 'Good'

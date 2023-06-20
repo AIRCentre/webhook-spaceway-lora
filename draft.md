@@ -113,3 +113,45 @@ type EventPayload struct {
 "vp":9999,
 "tf":0
 }
+
+CREATE TABLE IF NOT EXISTS Vessel_location.swarm_events(
+   id INT UNSIGNED NOT NULL AUTO_INCREMENT,
+   timestamp INT,
+   latitude_deg FLOAT,
+   longitude_deg FLOAT,
+   altitude INT,
+   speed INT,
+   heading INT,
+   gps_jamming INT,
+   gps_spoofing INT,
+   battery_v INT,
+   temperature_c INT,
+   rssi_dbm INT,
+   snr_db INT,
+   tr INT,
+   ts INT,
+   td INT,
+   hp INT,
+   vp INT,
+   tf INT,
+   signal_quality VARCHAR(20),
+   PRIMARY KEY (id),
+   UNIQUE KEY id_UNIQUE (id)
+) AUTO_INCREMENT=1;
+
+-- Create a trigger to automatically calculate signal_quality
+DELIMITER //
+CREATE TRIGGER calculate_signal_quality BEFORE INSERT ON Vessel_location.swarm_events
+FOR EACH ROW
+BEGIN
+  SET NEW.signal_quality =
+    CASE
+      WHEN NEW.rssi_dbm < -120 OR NEW.snr_db < -20 THEN 'Very Poor Signal Quality'
+      WHEN (NEW.rssi_dbm >= -120 AND NEW.rssi_dbm <= -110) OR (NEW.snr_db >= -20 AND NEW.snr_db <= -10) THEN 'Poor Signal Quality'
+      WHEN (NEW.rssi_dbm >= -110 AND NEW.rssi_dbm <= -100) OR (NEW.snr_db >= -10 AND NEW.snr_db <= 0) THEN 'Fair Signal Quality'
+      WHEN (NEW.rssi_dbm >= -100 AND NEW.rssi_dbm <= -90) OR (NEW.snr_db >= 0 AND NEW.snr_db <= 10) THEN 'Good Signal Quality'
+      WHEN NEW.rssi_dbm > -90 OR NEW.snr_db > 10 THEN 'Excellent Signal Quality'
+      ELSE 'Unknown'
+    END;
+END //
+DELIMITER ;

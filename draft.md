@@ -88,3 +88,28 @@ type EventPayload struct {
 
 
 (timestamp_unix_epoch_time, latitude_deg, longitude_deg, altitude, speed, heading, gps_jamming, gps_spoofing, battery_v, temperature_c, rssi_dbm,tr, ts, td, hp, vp, tf)
+
+
+
+
+
+
+{
+"dt":1686994251,
+"lt":0.0000,
+"ln":0.0000,
+"al":0,
+"sp":0,
+"hd":0,
+"gj":90,
+"gs":1,
+"bv":3985,
+"tp":26,
+"rs":-99,
+"tr":-118,
+"ts":-8,
+"td":1686986993,
+"hp":9999,
+"vp":9999,
+"tf":0
+}

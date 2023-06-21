@@ -29,14 +29,14 @@ func NewUplinkHandlerFunc(repo eventrepo.I) http.HandlerFunc {
 			http.Error(w, "Failed to read request body", http.StatusInternalServerError)
 			return
 		}
-		eventData, err := decodeBase64(eventMap["data"].(string))
+		eventData, err := decodeBase64(fmt.Sprint(eventMap["data"]))
 		if err != nil {
 			fmt.Println(err.Error())
 			http.Error(w, "Failed to decode device data", http.StatusInternalServerError)
 			return
 		}
 		var deviceData eventrepo.EventPayload
-		json.Unmarshal([]byte(eventData), &deviceData)
+		json.Unmarshal(eventData, &deviceData)
 
 		err = repo.Insert(fmt.Sprint(eventMap["deviceId"]), deviceData)
 		if err != nil {
@@ -47,10 +47,10 @@ func NewUplinkHandlerFunc(repo eventrepo.I) http.HandlerFunc {
 	}
 }
 
-func decodeBase64(encodedString string) (string, error) {
+func decodeBase64(encodedString string) ([]byte, error) {
 	decodedBytes, err := base64.StdEncoding.DecodeString(encodedString)
 	if err != nil {
-		return "", err
+		return nil, err
 	}
-	return string(decodedBytes), nil
+	return decodedBytes, nil
 }

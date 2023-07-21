@@ -18,7 +18,7 @@ CREATE TABLE IF NOT EXISTS Vessel_location.swarm_events(
    snr_db INT,
    timestamp_at_reception INT,
    rssi_background_dbm INT,
-   signal_strength VARCHAR(20),
+   signal_quality VARCHAR(20),
    PRIMARY KEY (id),
    UNIQUE KEY id_UNIQUE (id)
 );

@@ -23,8 +23,22 @@ func (r *mysqlrepo) Insert(deviceId string, payload EventPayload) error {
 
 func buildQuery(deviceId string, payload EventPayload) string {
 	query := fmt.Sprintf(`
-		INSERT INTO swarm_events (device_id, timestamp, latitude_deg, longitude_deg, altitude, speed, heading, gps_jamming, gps_spoofing, battery_v, temperature_c, rssi_dbm, tr, ts, td, hp, vp, tf)
-		VALUES ('%s', %d, %f, %f, %d, %d, %d, %d, %d, %d, %d, %d, %d, %d, %d, %d, %d, %d);`,
+		INSERT INTO swarm_events (
+			device_id,
+			timestamp,
+			latitude_deg,
+			longitude_deg,
+			altitude,
+			speed_mps,
+			heading_deg,
+			battery_v,
+			cpu_temperature_c,
+			rssi_dbm,
+			snr_db,
+			timestamp_at_reception,
+			rssi_background_dbm
+		)
+		VALUES ('%s', %d, %f, %f, %d, %d, %d, %d, %d, %d, %d, %d, %d);`,
 		deviceId,
 		payload.Timestamp,
 		payload.Latitude,
@@ -32,17 +46,13 @@ func buildQuery(deviceId string, payload EventPayload) string {
 		payload.Altitude,
 		payload.Speed,
 		payload.Heading,
-		payload.GPSJamming,
-		payload.GPSSpoofing,
-		payload.BatteryVoltage,
-		payload.Temperature,
+		payload.Battery,
+		payload.CPUTemperature,
 		payload.RSSI,
-		payload.Tr,
-		payload.Ts,
-		payload.Td,
-		payload.Hp,
-		payload.Vp,
-		payload.Tf)
+		payload.SNR,
+		payload.TimestampAtReception,
+		payload.RSSIBackground,
+	)
 
 	return strings.TrimSpace(query)
 }

@@ -7,24 +7,10 @@ type EventPayload struct {
 	Altitude             int     `json:"al"`
 	Speed                int     `json:"sp"`
 	Heading              int     `json:"hd"`
-	BatteryVoltage       int     `json:"bv"`
-	Temperature          int     `json:"tp"`
-	RSSIBackground       int     `json:"rs"`
+	Battery              int     `json:"bv"`
+	CPUTemperature       int     `json:"tp"`
 	RSSI                 int     `json:"tr"`
 	SNR                  int     `json:"ts"`
 	TimestampAtReception int     `json:"td"`
+	RSSIBackground       int     `json:"rs"`
 }
-
-// [SQL Fields]
-// timestamp INT,
-// latitude_deg FLOAT,
-// longitude_deg FLOAT,
-// altitude INT,
-// speed_mps INT,
-// heading_deg INT,
-// battery_v INT,
-// cpu_temperature_c INT,
-// rssi_dbm INT,
-// snr_db INT,
-// timestamp_at_reception INT,
-// rssi_background_dbm INT,

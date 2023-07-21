@@ -140,8 +140,8 @@ CREATE TABLE IF NOT EXISTS Vessel_location.swarm_events(
 ) AUTO_INCREMENT=1;
 
 -- Create a trigger to automatically calculate signal_quality
-DELIMITER //
-CREATE TRIGGER calculate_signal_quality BEFORE INSERT ON Vessel_location.swarm_events
+DELIMITER //   
+CREATE TRIGGER calculate_signal_quality_swarm_events BEFORE INSERT ON Vessel_location.swarm_events
 FOR EACH ROW
 BEGIN
   SET NEW.signal_quality =
@@ -155,3 +155,4 @@ BEGIN
     END;
 END //
 DELIMITER ;
+
